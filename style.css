@@ -47,7 +47,7 @@ body {
 .hero {
   height: 85vh;
   background: linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,.4)),
-              url("hero.jpg") center/cover no-repeat;
+              url("ababil-hero.jpg") center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
