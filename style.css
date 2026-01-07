@@ -46,12 +46,20 @@ body {
 /* HERO */
 .hero {
   height: 85vh;
-  background: linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,.4)),
-              url("ababil-hero.jpg") center/cover no-repeat;
+
+  background-image:
+    linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)),
+    url("ababil-hero.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 
 .hero-content {
   width: 80%;
