@@ -1,0 +1,230 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f4f6f9;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 60px;
+  background: white;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1677ff;
+}
+
+.menu {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+.menu li {
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.login-btn {
+  padding: 8px 20px;
+  background: #1677ff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+}
+
+/* HERO */
+.hero {
+  height: 85vh;
+  background: linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,.4)),
+              url("hero.jpg") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-content {
+  width: 80%;
+  color: white;
+}
+
+.hero h1 {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+/* SEARCH BOX */
+.search-box {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  color: black;
+}
+
+/* TABS */
+.tabs {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 15px;
+}
+
+.tabs span {
+  cursor: pointer;
+  opacity: .7;
+}
+
+.tabs .active {
+  color: #1677ff;
+  font-weight: bold;
+  opacity: 1;
+}
+
+/* TRIP TYPE */
+.trip-type {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+/* INPUTS */
+.inputs {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+.inputs input,
+.inputs select {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.search-btn {
+  background: orange;
+  border: none;
+  color: white;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+/* ---------- RESPONSIVE ---------- */
+
+/* Tablet */
+@media (max-width: 1024px) {
+
+  .navbar {
+    padding: 15px 30px;
+  }
+
+  .menu {
+    gap: 15px;
+    font-size: 14px;
+  }
+
+  .hero-content {
+    width: 90%;
+  }
+
+  .inputs {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .hero h1 {
+    font-size: 34px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+  /* NAVBAR */
+  .navbar {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .menu {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .login-btn {
+    width: 100%;
+  }
+
+  /* HERO */
+  .hero {
+    height: auto;
+    padding: 60px 0;
+  }
+
+  .hero h1 {
+    font-size: 28px;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  /* SEARCH BOX */
+  .tabs {
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+  }
+
+  .trip-type {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .inputs {
+    grid-template-columns: 1fr;
+  }
+
+  .search-btn {
+    padding: 14px;
+    font-size: 20px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+
+  .navbar {
+    padding: 12px 20px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .hero h1 {
+    font-size: 24px;
+  }
+
+  .hero p {
+    font-size: 14px;
+  }
+
+  .search-box {
+    padding: 15px;
+  }
+}
