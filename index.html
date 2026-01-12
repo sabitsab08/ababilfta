@@ -2,72 +2,875 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>ShareTrip Clone</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Ababil Flight Travel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Font Awesome CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* ===============================
+       Global Reset & Base Styling
+       =============================== */
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body{
+      background: #f5f7fa;
+      min-height: 200vh;
+    }
+
+    /* ===============================
+       Navbar Styling
+       =============================== */
+    .navbar{
+      position: sticky;
+      top: 0;
+      width: 100%;
+      background: #ffffff;
+      z-index: 1000;
+      transition: 0.4s ease;
+    }
+
+    /* Scroll hole navbar glass effect ashbe */
+    .navbar.scrolled{
+      background: rgba(255,255,255,0.65);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.12);
+    }
+
+    .nav-container{
+      max-width: 1200px;
+      margin: auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* ===============================
+       Logo Section
+       =============================== */
+    .logo{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .logo svg{
+      transition: 0.3s ease;
+    }
+
+    .logo:hover svg{
+      transform: translateX(-4px);
+    }
+
+    .logo h4{
+      font-size: 20px;
+      font-weight: 600;
+      color: #00457d;
+    }
+
+    /* ===============================
+       Navigation Menu
+       =============================== */
+    .nav-menu{
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-menu li{
+      position: relative;
+    }
+
+    .nav-menu a{
+      text-decoration: none;
+      font-weight: 600;
+      color: #4d4b4b;
+      transition: 0.3s;
+    }
+
+    .nav-menu a:hover{
+      color: #00457d;
+    }
+
+    /* ===============================
+       Dropdown Menu
+       =============================== */
+    .dropdown-menu{
+      position: absolute;
+      top: 40px;
+      left: 0;
+      min-width: 210px;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(12px);
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      display: none;
+      overflow: hidden;
+    }
+
+    .dropdown-menu li a{
+      display: block;
+      padding: 12px 16px;
+      font-size: 14px;
+    }
+
+    .dropdown-menu li a:hover{
+      background: #f1f4f8;
+    }
+
+    .dropdown:hover .dropdown-menu{
+      display: block;
+    }
+
+    /* ===============================
+       Navbar Buttons
+       =============================== */
+    .nav-buttons{
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn{
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 14px;
+      text-decoration: none;
+      transition: 0.3s;
+      font-weight: 600;
+    }
+
+    .btn-outline{
+      border: 1px solid #00457d;
+      color: #00457d;
+    }
+
+    .btn-outline:hover{
+      background: #00457d;
+      color: #ffffff;
+    }
+
+    .btn-fill{
+      background: #00457d;
+      color: #ffffff;
+    }
+
+    .btn-fill:hover{
+      background: #00345f;
+    }
+
+    /* ===============================
+       Mobile Menu
+       =============================== */
+    .menu-toggle{
+      display: none;
+      font-size: 22px;
+      color: #00457d;
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px){
+      .nav-menu{
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: rgba(0,0,0,0.85);
+        flex-direction: column;
+        align-items: center;
+        display: none;
+        padding: 20px 0;
+      }
+
+      .nav-menu a{
+        color: #ffffff;
+      }
+
+      .nav-menu.active{
+        display: flex;
+      }
+
+      .nav-buttons{
+        display: none;
+      }
+
+      .menu-toggle{
+        display: block;
+      }
+
+      .dropdown-menu{
+        position: static;
+        box-shadow: none;
+        background: transparent;
+      }
+    }
+
+    /* ===============================
+       Hero Section
+       =============================== */
+    .hero{
+      position: relative;
+      height: 450px;
+      display: flex;
+      align-items: center;
+      color: #ffffff;
+      overflow: hidden;
+    }
+
+    .hero video{
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .hero::after{
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(0,0,0,0.65), rgba(0,0,0,0.25));
+      z-index: -1;
+    }
+
+    .hero-content{
+      margin-left: 170px;
+    }
+
+    .hero h1{
+      font-size: 36px;
+    }
+
+    .hero p{
+      font-size: 18px;
+      opacity: 0.9;
+    }
+
+    @media(max-width:768px){
+      .search-btn {
+        padding: 15px;
+  }
+      .hero{
+        height: 300px;
+      }
+      .hero-content{
+        margin-left: 20px;
+      }
+      .hero h1{
+        font-size: 28px;
+      }
+    }
+
+    /* ===============================
+       Quick Booking Section
+       =============================== */
+    .quick-booking{
+      max-width: 935px;
+      margin: -60px auto 50px;
+      background: #ffffff;
+      padding: 26px;
+      border-radius: 16px;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.1); 
+      position: relative;
+      z-index: 10;
+    }
+
+    .booking-form{
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 15px;
+    }
+
+    .form-group{
+      position: relative;
+    }
+
+    .form-group i{
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #00457d;
+    }
+
+    .form-group input,
+    .form-group select{
+      width: 100%;
+      padding: 14px 14px 14px 42px;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus{
+      border-color: #00457d;
+    }
+
+    .search-btn{
+      background: #00457d;
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .search-btn:hover{
+      background: #00345f;
+    }
+
+    @media(max-width:768px){
+      .booking-form{
+        grid-template-columns: 1fr;
+      }
+    }
+    /* Premium Section Styling */
+.premium-section {
+  padding: 60px 0;
+  background: #f7f9fc;
+}
+
+/* Section Titles */
+.section-title {
+  font-size: 2.8rem;
+  text-align: center;
+  margin-bottom: 10px;
+  color: #00457d;
+  font-weight: 700;
+}
+
+.section-subtitle {
+  text-align: center;
+  margin-bottom: 50px;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* Cards Grid */
+.destinations-grid, .offers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+/* Destination / Offer Card */
+.destination-card, .offer-card {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  transition: transform 0.4s, box-shadow 0.4s;
+  position: relative;
+  background: #fff;
+}
+
+.destination-card:hover, .offer-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+}
+
+/* Card Images */
+.destination-card img, .offer-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+
+.destination-card:hover img, .offer-card:hover img {
+  transform: scale(1.1);
+}
+
+/* Info Overlay */
+.destination-info, .offer-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0));
+  color: #fff;
+}
+
+.destination-info h3, .offer-info h3 {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+.destination-info p, .offer-info p {
+  font-size: 1rem;
+  margin-bottom: 12px;
+}
+
+/* Premium Buttons */
+.btn-premium {
+  background: linear-gradient(45deg, #00457d, #0066b3);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+  display: inline-block;
+}
+
+.btn-premium:hover {
+  background: linear-gradient(45deg, #00345f, #004f8c);
+  transform: translateY(-2px);
+}
+
+/* Footer Premium */
+.premium-footer {
+  background: #00457d;
+  color: #fff;
+  padding: 60px 20px 20px;
+}
+
+.premium-footer .footer-top {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap: 40px;
+  margin-bottom: 30px;
+}
+
+.premium-footer h3, .premium-footer h4 {
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.premium-footer p, .premium-footer ul li {
+  font-size: 0.95rem;
+  color: #ddd;
+  margin-bottom: 10px;
+}
+
+.premium-footer ul {
+  list-style: none;
+  padding: 0;
+}
+
+.premium-footer ul li a {
+  color: #ddd;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.premium-footer ul li a:hover {
+  color: #ff6b6b;
+}
+
+.social-icons a {
+  font-size: 1.2rem;
+  margin-right: 12px;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.social-icons a:hover {
+  color: #ff6b6b;
+}
+
+.footer-bottom {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #ccc;
+  margin-top: 20px;
+}/* Listing container with left-right margin */
+.listing-container {
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+/* Premium Section Styling */
+.premium-section {
+  padding: 60px 0;
+  background: #f7f9fc;
+}
+
+/* Section Titles */
+.section-title {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 10px;
+  color: #00457d;
+  font-weight: 700;
+}
+
+.section-subtitle {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 1.05rem;
+  color: #555;
+}
+
+/* Cards Grid */
+.destinations-grid, .offers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  justify-content: center;
+}
+
+/* Destination / Offer Card */
+.destination-card, .offer-card {
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  background: #fff;
+}
+
+/* Card hover effect */
+.destination-card:hover, .offer-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+}
+
+/* Card Images */
+.destination-card img, .offer-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.destination-card:hover img, .offer-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Info Overlay */
+.destination-info, .offer-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+  color: #fff;
+}
+
+.destination-info h3, .offer-info h3 {
+  font-size: 1.2rem;
+  margin-bottom: 6px;
+}
+
+.destination-info p, .offer-info p {
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+/* Premium Buttons */
+.btn-premium {
+  background: linear-gradient(45deg, #00457d, #0066b3);
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn-premium:hover {
+  background: linear-gradient(45deg, #00345f, #004f8c);
+  transform: translateY(-2px);
+}
+
+/* Footer Premium */
+.premium-footer {
+  background: #00457d;
+  color: #fff;
+  padding: 60px 20px 20px;
+}
+
+.premium-footer .footer-top {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap: 40px;
+  margin-bottom: 30px;
+}
+
+.premium-footer h3, .premium-footer h4 {
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.premium-footer p, .premium-footer ul li {
+  font-size: 0.9rem;
+  color: #ddd;
+  margin-bottom: 10px;
+}
+
+.premium-footer ul {
+  list-style: none;
+  padding: 0;
+}
+
+.premium-footer ul li a {
+  color: #ddd;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.premium-footer ul li a:hover {
+  color: #ff6b6b;
+}
+
+.social-icons a {
+  font-size: 1.2rem;
+  margin-right: 12px;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.social-icons a:hover {
+  color: #ff6b6b;
+}
+
+.footer-bottom {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #ccc;
+  margin-top: 20px;
+}
+  </style>
 </head>
+
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar">
-  <div class="logo">ShareTrip</div>
-  <ul class="menu">
-    <li>Flight</li>
-    <li>Hotel</li>
-    <li>Shop</li>
-    <li>Holiday</li>
-    <li>Visa</li>
-    <li>Promotions</li>
-  </ul>
-  <button class="login-btn">Login</button>
-</nav>
+<!-- ===============================
+     Navbar HTML
+     =============================== -->
+<header class="navbar">
+  <div class="nav-container">
 
-<!-- HERO -->
+    <!-- Logo -->
+    <div class="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 -960 960 960" fill="#00457d">
+        <path d="m401-130-95-176-176-95 67-68 145 25 97-96-309-133 85-85 372 69 120-120q21-21 51-21t51 21q21 21 21 50.5T809-708L689-588l69 373-85 85-133-309-96 97 25 145-68 67Z"/>
+      </svg>
+      <h4>Ababil Flight Travel</h4>
+    </div>
+
+    <!-- Menu -->
+    <ul class="nav-menu">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Flight</a></li>
+      <li><a href="#">Visa</a></li>
+      <li><a href="#">Hotel</a></li>
+      <li class="dropdown">
+        <a href="#">Others <i class="fa-solid fa-chevron-down"></i></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Tour Package</a></li>
+          <li><a href="#">Hajj & Umrah</a></li>
+          <li><a href="#">Travel Insurance</a></li>
+          <li><a href="#">Support</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <!-- Buttons -->
+    <div class="nav-buttons">
+      <a href="#" class="btn btn-outline">Sign In</a>
+      <a href="#" class="btn btn-fill">Log In</a>
+    </div>
+
+    <!-- Mobile Icon -->
+    <div class="menu-toggle">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+
+  </div>
+</header>
+
+<!-- ===============================
+     Hero Section
+     =============================== -->
 <section class="hero">
+  <video autoplay muted loop>
+    <source src="http://ababil-flight.local/wp-content/uploads/2026/01/457339_Llandudno_Beach_Llandudno_3840x2160.mp4" type="video/mp4">
+  </video>
   <div class="hero-content">
-    <h1>Welcome to ShareTrip!</h1>
-    <p>Find Flights, Hotels, Visa & Holidays</p>
+    <h1>Welcome to <strong>Ababil!</strong></h1>
+    <p>Your favourite visa solution.</p>
+  </div>
+</section>
 
-    <!-- SEARCH BOX -->
-    <div class="search-box">
+<!-- ===============================
+     Quick Booking Form
+     =============================== -->
+<section class="quick-booking">
+  <form class="booking-form">
 
-      <!-- TOP ICONS -->
-      <div class="tabs">
-        <span class="active"><i class="fa-solid fa-plane"></i> Flight</span>
-        <span><i class="fa-solid fa-hotel"></i> Hotel</span>
-        <span><i class="fa-solid fa-umbrella-beach"></i> Holiday</span>
-        <span><i class="fa-solid fa-passport"></i> Visa</span>
+    <div class="form-group">
+      <i class="fa-solid fa-location-dot"></i>
+      <input type="text" placeholder="Destination">
+    </div>
+
+    <div class="form-group">
+      <i class="fa-solid fa-calendar-days"></i>
+      <input type="date">
+    </div>
+
+    <div class="form-group">
+      <i class="fa-solid fa-briefcase"></i>
+      <select>
+        <option value="">Select Service</option>
+        <option>Air Ticket</option>
+        <option>Visa Processing</option>
+        <option>Hotel Booking</option>
+        <option>Tour Package</option>
+      </select>
+    </div>
+
+    <button class="search-btn">
+      <i class="fa-solid fa-magnifying-glass"></i> Search
+    </button>
+
+  </form>
+</section>
+<!-- ===== Popular Destinations ===== -->
+<section class="popular-destinations premium-section">
+  <div class="container listing-container">
+    <h2 class="section-title">Popular Destinations</h2>
+    <p class="section-subtitle">Discover the world's most stunning places</p>
+    <div class="destinations-grid">
+      <div class="destination-card">
+        <img src="https://picsum.photos/400/300?random=11" alt="Paris">
+        <div class="destination-info">
+          <h3>Paris</h3>
+          <p>From $499 per person</p>
+          <a href="#" class="btn btn-premium">Book Now</a>
+        </div>
       </div>
-
-      <!-- TRIP TYPE -->
-      <div class="trip-type">
-        <label><input type="radio" checked> Round Trip</label>
-        <label><input type="radio"> One Way</label>
-        <label><input type="radio"> Multi City</label>
+      <div class="destination-card">
+        <img src="https://picsum.photos/400/300?random=12" alt="Maldives">
+        <div class="destination-info">
+          <h3>Maldives</h3>
+          <p>From $799 per person</p>
+          <a href="#" class="btn btn-premium">Book Now</a>
+        </div>
       </div>
-
-      <!-- INPUTS -->
-      <div class="inputs">
-        <input type="text" placeholder="From (DAC)">
-        <input type="text" placeholder="To (CXB)">
-        <input type="date">
-        <input type="date">
-        <select>
-          <option>1 Traveller</option>
-          <option>2 Traveller</option>
-        </select>
-        <select>
-          <option>Economy</option>
-          <option>Business</option>
-        </select>
-        <button class="search-btn">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
+      <div class="destination-card">
+        <img src="https://picsum.photos/400/300?random=13" alt="Tokyo">
+        <div class="destination-info">
+          <h3>Tokyo</h3>
+          <p>From $699 per person</p>
+          <a href="#" class="btn btn-premium">Book Now</a>
+        </div>
       </div>
-
+      <div class="destination-card">
+        <img src="https://picsum.photos/400/300?random=14" alt="New York">
+        <div class="destination-info">
+          <h3>New York</h3>
+          <p>From $649 per person</p>
+          <a href="#" class="btn btn-premium">Book Now</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- ===== Special Offers ===== -->
+<section class="special-offers premium-section">
+  <div class="container listing-container">
+    <h2 class="section-title">Special Offers</h2>
+    <p class="section-subtitle">Grab exclusive deals before they disappear</p>
+    <div class="offers-grid">
+      <div class="offer-card">
+        <img src="https://picsum.photos/400/250?random=21" alt="Beach Getaway">
+        <div class="offer-info">
+          <h3>Beach Getaway</h3>
+          <p>Save 20% on Maldives Package</p>
+          <a href="#" class="btn btn-premium">Book Now</a>
+        </div>
+      </div>
+      <div class="offer-card">
+        <img src="https://picsum.photos/400/250?random=22" alt="Mountain Adventure">
+        <div class="offer-info">
+          <h3>Mountain Adventure</h3>
+          <p>Save 15% on Alps Tour</p>
+          <a href="#" class="btn btn-premium">Book Now</a>
+        </div>
+      </div>
+      <div class="offer-card">
+        <img src="https://picsum.photos/400/250?random=23" alt="City Lights">
+        <div class="offer-info">
+          <h3>City Lights</h3>
+          <p>Save 25% on Tokyo Tour</p>
+          <a href="#" class="btn btn-premium">Book Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="footer premium-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-about">
+        <h3>Ababil Flight Travel</h3>
+        <p>Making your travel dreams come true. Explore destinations worldwide with comfort and style.</p>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Destinations</a></li>
+          <li><a href="#">Offers</a></li>
+          <li><a href="#">Tours</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact Us</h4>
+        <p>123 Travel Street, Dhaka, Bangladesh</p>
+        <p>Phone: +880 1234 567890</p>
+        <p>Email: info@ababilflight.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Ababil Flight Travel. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===============================
+     JavaScript
+     =============================== -->
+<script>
+  // Mobile menu toggle korar jonno
+  const toggle = document.querySelector('.menu-toggle');
+  const menu = document.querySelector('.nav-menu');
+
+  toggle.addEventListener('click', () => {
+    menu.classList.toggle('active');
+  });
+
+  // Scroll hole navbar effect ashbe
+  const navbar = document.querySelector('.navbar');
+
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
+</script>
 
 </body>
 </html>
